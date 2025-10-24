@@ -1,0 +1,36 @@
+<?php
+
+namespace Src\Controllers;
+
+use ORM;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
+class HomeController extends Controller
+{
+    public function index(
+        RequestInterface $request,
+        ResponseInterface $response
+    )
+    {
+        $categories = ORM::forTable('categories')->whereNull('parent_id')->findMany();
+        $products = ORM::forTable('products')->findMany();
+        return $this->renderer->render($response, 'index.php', [
+            'categories' => $categories,
+            'products' => $products
+        ]);
+    }
+    public function show(
+        RequestInterface $request,
+        ResponseInterface $response,
+        array $args
+    )
+    {
+        $slug = $args['slug'];
+        $category = ORM::forTable('categories')->where('slug', $slug)->find_one();
+        $categories = ORM::forTable('categories')->where('parent_id',$category['id'])->findMany();
+        return $this->renderer->render($response, 'show.php', [
+            'categories' => $categories,
+        ]);
+    }
+}

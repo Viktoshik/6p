@@ -4,6 +4,7 @@ use DI\Container;
 use Slim\Factory\AppFactory;
 use Slim\Views\PhpRenderer;
 use Src\Controllers\CategoryController;
+use Src\Controllers\HomeController;
 use Src\Controllers\ProductsController;
 
 require __DIR__ . '/vendor/autoload.php';
@@ -12,8 +13,11 @@ $container = new Container();
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
-$container->set(PhpRenderer::class, function () {
-    return new PhpRenderer(__DIR__ . '/templates');
+$container->set(PhpRenderer::class, function () use ($container){
+    return new PhpRenderer(__DIR__ . '/templates',
+    [
+        'categories' => ORM::forTable('categories')->whereNull('parent_id')->find_many(),
+    ]);
 });
 
 ORM::configure('mysql:host=database;dbname=docker;charset=utf8mb4');
@@ -33,5 +37,7 @@ $app->post('/products/create', [ProductsController::class, 'store']);
 $app->get('/products/{id}/edit', [ProductsController::class, 'edit']);
 $app->post('/products/{id}/edit', [ProductsController::class, 'update']);
 $app->get('/products/{id}/delete', [ProductsController::class, 'delete']);
+$app->get('/catalog', [HomeController::class, 'index']);
+$app->get('/catalog/{slug}', [HomeController::class, 'show']);
 
 $app->run();
