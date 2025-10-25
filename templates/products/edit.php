@@ -17,6 +17,8 @@
         <?php endforeach; ?>
     </select>
     <input type="number" name="price" id="price" value="<?=$product['price']?>">
+    <label>Выводить на главную?</label>
+    <input type="checkbox" name="pop">
     <button type="submit">Изменить</button>
 </form>
 </body>

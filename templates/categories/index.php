@@ -14,11 +14,17 @@
         <tr>
             <td>name</td>
             <td>parent_id</td>
+            <td>Выводится на главную</td>
         </tr>
         <?php foreach ($categories as $category): ?>
             <tr>
                 <td><?=$category['name']?></td>
                 <td><?=$category['parent_id']?></td>
+                <?php if ($category['pop'] === 1): ?>
+                <td>Да</td>
+                <?php else: ?>
+                <td>Нет</td>
+                <?php endif; ?>
                 <td><a href="/categories/<?=$category['id']?>/edit">Изменить</a></td>
                 <td><a href="/categories/<?=$category['id']?>/delete">Удалить</a></td>
             </tr>

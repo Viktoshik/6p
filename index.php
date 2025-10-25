@@ -3,6 +3,7 @@
 use DI\Container;
 use Slim\Factory\AppFactory;
 use Slim\Views\PhpRenderer;
+use Src\Controllers\AttributeController;
 use Src\Controllers\CategoryController;
 use Src\Controllers\HomeController;
 use Src\Controllers\ProductsController;
@@ -37,7 +38,15 @@ $app->post('/products/create', [ProductsController::class, 'store']);
 $app->get('/products/{id}/edit', [ProductsController::class, 'edit']);
 $app->post('/products/{id}/edit', [ProductsController::class, 'update']);
 $app->get('/products/{id}/delete', [ProductsController::class, 'delete']);
-$app->get('/catalog', [HomeController::class, 'index']);
+$app->get('/products/{id}/addAttributes', [ProductsController::class, 'addAttributes']);
+$app->post('/products/{id}/addAttributes', [ProductsController::class, 'storeAttributes']);
+$app->get('/', [HomeController::class, 'index']);
+$app->get('/catalog', [HomeController::class, 'catalog']);
 $app->get('/catalog/{slug}', [HomeController::class, 'show']);
+$app->get('/catalog/show/{slug}', [HomeController::class, 'productshow']);
+$app->get('/attributes', [AttributeController::class, 'index']);
+$app->get('/attributes/create', [AttributeController::class, 'create']);
+$app->post('/attributes/create', [AttributeController::class, 'store']);
+$app->get('/attributes/delete/{id}', [AttributeController::class, 'delete']);
 
 $app->run();

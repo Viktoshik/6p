@@ -15,12 +15,19 @@
         <td>name</td>
         <td>category_id</td>
         <td>price</td>
+        <td>Выводится на главную</td>
     </tr>
     <?php foreach ($products as $product): ?>
         <tr>
             <td><?=$product['name']?></td>
             <td><?=$product['category_id']?></td>
             <td><?=$product['price']?></td>
+            <?php if ($product['pop'] == 1): ?>
+            <td>Да</td>
+            <?php else: ?>
+            <td>Нет</td>
+            <?php endif; ?>
+            <td><a href="/products/<?=$product['id']?>/addAttributes">Добавить характеристику</a></td>
             <td><a href="/products/<?=$product['id']?>/edit">Изменить</a></td>
             <td><a href="/products/<?=$product['id']?>/delete">Удалить</a></td>
         </tr>

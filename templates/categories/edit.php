@@ -17,6 +17,8 @@
             <option value="<?= $parentCategory['id'] ?>"<?=$parentCategory['id']===$category['parent_id']?'selected':''?>><?= $parentCategory['name'] ?></option>
         <?php endforeach; ?>
     </select>
+    <label for="">Выводить на главную</label>
+    <input type="checkbox" name="pop">
     <button type="submit">Изменить</button>
 </form>
 </body>

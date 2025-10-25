@@ -6,7 +6,7 @@ use ORM;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class CategoryController extends Controller
+class CategoryController extends AdminController
 {
     public function index(
         RequestInterface  $request,
@@ -14,7 +14,7 @@ class CategoryController extends Controller
     )
     {
         $categories = ORM::forTable('categories')->findMany();
-        return $this->renderer->render($response, 'categories/index.php', [
+        return $this->renderer->render($response, 'categories/catalog.php', [
             'categories' => $categories,
         ]);
     }
@@ -64,9 +64,11 @@ class CategoryController extends Controller
     )
     {
         $id = $args['id'];
+        $pop = empty($request->getParsedBody()['pop']) ? 0 : 1;
         ORM::forTable('categories')->findOne($id)->set([
             'name' => $request->getParsedBody()['name'],
             'parent_id' => $request->getParsedBody()['parent_id'] !== '' ? $request->getParsedBody()['parent_id'] : null,
+            'pop' => $pop,
         ])->save();
 
         return $response->withStatus(302)->withHeader('Location', '/categories');

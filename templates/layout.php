@@ -9,6 +9,8 @@
 </head>
 <body>
     <div>
+        <a href="/">Главная</a>
+        <a href="/catalog">Каталог</a>
         <?php foreach ($categories as $category): ?>
         <a href="/catalog/<?=$category['slug']?>"><?=$category['name']?></a>
         <?php endforeach; ?>

@@ -1,13 +1,18 @@
-    <h1>Категории</h1>
-   <table>
-       <tr>
-           <td>name</td>
-           <td>price</td>
-       </tr>
-       <?php foreach ($products as $product): ?>
-       <tr>
-           <td><?=$product['name']?></td>
-           <td><?=$product['price']?></td>
-       </tr>
-       <?php endforeach;?>
-   </table>
+ <h1>Популярные</h1>
+ <h2>Категории</h2>
+    <?php foreach ($categories as $category): ?>
+        <?php if($category['pop'] == 1): ?>
+        <a href="/catalog/<?=$category['slug']?>"><?=$category['name']?></a>
+        <?php endif; ?>
+    <?php endforeach;?>
+    <h2>Товары</h2>
+ <?php foreach ($products as $product): ?>
+ <table>
+     <tr>
+         <td><?=$product['name']?></td>
+         <td><?=$product['price']?></td>
+     </tr>
+ </table>
+ <?php endforeach;?>
+
+
