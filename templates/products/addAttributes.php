@@ -9,10 +9,10 @@
 </head>
 <body>
 <h1></h1>
-<form action="/products/<?=$product['id']?>/addAttributes" method="post">
+<form action="/products/<?= $product['id'] ?>/addAttributes" method="post">
     <select name="attribute" id="">
         <?php foreach ($attributes as $attribute): ?>
-        <option value="<?=$attribute['id']?>"><?=$attribute['name']?></option>
+            <option value="<?= $attribute['id'] ?>"><?= $attribute['name'] ?></option>
         <?php endforeach; ?>
     </select>
     <input type="number" name="value">
@@ -20,10 +20,18 @@
 </form>
 <div>
     Уже имеющиеся характеристики
-    <?php foreach($product_attributes as $attribute): ?>
-    <p><?=$attribute['product_id']?></p>
-    <p><?=$attribute['attribute_type_id']?></p>
-    <?php endforeach;?>
+    <table>
+        <tr>
+            <td>Атрибут</td>
+            <td>Значение</td>
+        </tr>
+        <?php foreach ($product_attributes as $attribute): ?>
+            <tr>
+                <td><?= $attribute['attribute_name'] ?></td>
+                <td><?= $attribute['value'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 
 </div>
 </body>

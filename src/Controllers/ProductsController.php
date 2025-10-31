@@ -14,7 +14,7 @@ class ProductsController extends AdminController
     )
     {
         $products = ORM::forTable('products')->findMany();
-        return $this->renderer->render($response, 'products/index.php', [
+        return $this->renderer->render($response, 'products/create.php', [
             'products' => $products,
         ]);
     }
@@ -94,7 +94,11 @@ class ProductsController extends AdminController
         $id = $args['id'];
         $product = ORM::forTable('products')->findOne($id);
         $attributes = ORM::forTable('attribute_types')->findMany();
-        $product_attributes = ORM::forTable('product_attributes')->where('product_id', $id)->findMany();
+        $product_attributes = ORM::forTable('product_attributes')
+            ->select('product_attributes.*')
+            ->select('attribute_types.name', 'attribute_name')
+            ->leftOuterJoin('attribute_types', 'attribute_types.id = product_attributes.attribute_type_id')
+            ->where('product_id', $id)->findMany();
         return $this->renderer->render($response, 'products/addAttributes.php', [
             'product' => $product,
             'attributes' => $attributes,

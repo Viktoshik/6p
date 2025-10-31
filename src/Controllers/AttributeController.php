@@ -16,7 +16,7 @@ class AttributeController extends AdminController
 )
     {
         $attributes = ORM::forTable('attribute_types')->findMany();
-        return $this->renderer->render($response, 'attributes/index.php', [
+        return $this->renderer->render($response, 'attributes/create.php', [
         'attributes' => $attributes,
         ]);
     }

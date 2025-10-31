@@ -3,6 +3,7 @@
 use DI\Container;
 use Slim\Factory\AppFactory;
 use Slim\Views\PhpRenderer;
+use Src\Controllers\ApplicationsController;
 use Src\Controllers\AttributeController;
 use Src\Controllers\CategoryController;
 use Src\Controllers\HomeController;
@@ -48,5 +49,10 @@ $app->get('/attributes', [AttributeController::class, 'index']);
 $app->get('/attributes/create', [AttributeController::class, 'create']);
 $app->post('/attributes/create', [AttributeController::class, 'store']);
 $app->get('/attributes/delete/{id}', [AttributeController::class, 'delete']);
+$app->get('/products/applications', [ApplicationsController::class, 'applications']);
+$app->post('/products/{id}/applications', [ApplicationsController::class, 'addApplications']);
+$app->get('/products/{id}/applications/edit', [ApplicationsController::class, 'edit']);
+$app->post('/products/{id}/applications/edit', [ApplicationsController::class, 'update']);
+$app->get('/products/{id}/applications/delete', [ApplicationsController::class, 'delete']);
 
 $app->run();
