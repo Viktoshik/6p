@@ -14,7 +14,7 @@ class CategoryController extends AdminController
     )
     {
         $categories = ORM::forTable('categories')->findMany();
-        return $this->renderer->render($response, 'categories/catalog.php', [
+        return $this->renderer->render($response, 'categories/index.php', [
             'categories' => $categories,
         ]);
     }

@@ -45,7 +45,7 @@ class HomeController extends Controller
         $products = ORM::forTable('products')->
             where('pop', 1)
             ->findMany();
-        return $this->renderer->render($response, 'create.php', [
+        return $this->renderer->render($response, 'index.php', [
             'categories' => $categories,
             'products' => $products,
         ]);
